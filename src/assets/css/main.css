@@ -1,0 +1,17 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+body::-webkit-scrollbar {
+  width: 0; /* REMOVE SCROLLBAR SPACE */
+  background: transparent; /* OPTIONAL: JUST MAKE SCROLLBAR INVISIBLE */
+  overflow-x: hidden;
+}
