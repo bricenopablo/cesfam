@@ -8,10 +8,32 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {
   width: 0; /* REMOVE SCROLLBAR SPACE */
   background: transparent; /* OPTIONAL: JUST MAKE SCROLLBAR INVISIBLE */
   overflow-x: hidden;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f2f6fe;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #44b6fe;
+  border-radius: 1rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #44b6fe;
 }

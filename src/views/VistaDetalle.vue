@@ -12,6 +12,16 @@
         <p>19.572.740-6</p>
       </div>
     </div>
+    <div class="info">
+      <div class="info__item">
+        <label for="">Receta</label>
+        <textarea name="" id="" cols="30" rows="10">asdfgahsdjfasdf</textarea>
+      </div>
+      <div class="info__item">
+        <label for="">Observaciones</label>
+        <textarea name="" id="" cols="30" rows="10">asdfgahsdjfasdf</textarea>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,11 +32,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.detalle {
+  width: 90%;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 .personas {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 5rem;
+  justify-content: center;
+  gap: 4rem;
 
   &__item {
     letter-spacing: 2px;
@@ -38,6 +56,34 @@ export default {
     p {
       opacity: 0.75;
       font-size: 18px;
+    }
+  }
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 3rem;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    label {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    input:focus,
+    textarea:focus {
+      outline: none !important;
+      border-color: #44b6fe;
+      box-shadow: 0 0 10px #44b6fe;
+    }
+    textarea {
+      resize: none;
+      font-size: 18px;
+      padding: 0.5rem;
     }
   }
 }

@@ -12,11 +12,11 @@
         <img src="@/assets/img/revisar.png" alt="" />
         <p>Revisar preescripciones</p>
       </div>
-      <div class="cards__item">
+      <div class="cards__item" @click="$router.push({ name: 'Medicamentos' })">
         <img src="@/assets/img/control.png" alt="" />
         <p>Control de medicamentos</p>
       </div>
-      <div class="cards__item" @click="$router.push({ name: 'Login' })">
+      <div class="cards__item" @click="salir">
         <img src="@/assets/img/cerrar.png" alt="" />
         <p>Cerrar sesión</p>
       </div>
@@ -27,6 +27,13 @@
 <script>
 export default {
   name: "VistaInico",
+  methods: {
+    salir() {
+      this.$router.push({ name: "Login" }).then(() => {
+        this.$toast.success("Hasta la próxima :)");
+      });
+    },
+  },
 };
 </script>
 

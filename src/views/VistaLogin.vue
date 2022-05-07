@@ -4,7 +4,7 @@
       <img src="@/assets/img/login.png" alt="" />
     </div>
     <div class="right">
-      <form>
+      <form @submit.prevent="entrar">
         <div class="form__field">
           <label>RUN</label>
           <input type="text" />
@@ -22,6 +22,13 @@
 <script>
 export default {
   name: "VistaLogin",
+  methods: {
+    entrar() {
+      this.$router.push({ name: "Inicio" }).then(() => {
+        this.$toast.success("Bienvenido :)");
+      });
+    },
+  },
 };
 </script>
 
