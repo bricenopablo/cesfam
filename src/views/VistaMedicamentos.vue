@@ -1,18 +1,28 @@
 <template>
-  <div class="preescripciones">
+  <div class="medicamentos">
     <div class="filters">
-      <div class="filters__item"><input type="text" placeholder="RUN" /></div>
+      <div class="filters__item">
+        <input type="text" placeholder="CODIGO" />
+      </div>
       <div class="filters__item">
         <input type="text" placeholder="NOMBRE" />
+      </div>
+      <div class="filters__item">
+        <input type="text" placeholder="CANTIDAD" />
+      </div>
+      <div class="filters__item">
+        <input type="text" placeholder="FABRICANTE" />
       </div>
       <div class="filters__item">
         <input type="text" placeholder="ACCIONES" disabled />
       </div>
     </div>
     <div class="results">
-      <div class="results__item" v-for="patient in patients" :key="patient.id">
-        <p>{{ patient.run }}</p>
-        <p>{{ patient.nombre }}</p>
+      <div class="results__item" v-for="drug in drugs" :key="drug.id">
+        <p>{{ drug.codigo }}</p>
+        <p>{{ drug.nombre }}</p>
+        <p>{{ drug.cantidad }}</p>
+        <p>{{ drug.fabricante }}</p>
         <button>Ver detalles</button>
       </div>
     </div>
@@ -24,21 +34,18 @@ export default {
   name: "VistaPreescripciones",
   data() {
     return {
-      patients: [
+      drugs: [
         {
-          id: 1,
-          run: "19.572.740-6",
-          nombre: "Pablo Briceño",
+          codigo: 1,
+          nombre: "Paracetamol",
+          cantidad: 2000,
+          fabricante: "Bayer",
         },
         {
-          id: 2,
-          run: "20.984.103-7",
-          nombre: "Juan Pablo Navarrete",
-        },
-        {
-          id: 1,
-          run: "19.572.740-6",
-          nombre: "Pablo Briceño",
+          codigo: 2,
+          nombre: "Ketadol",
+          cantidad: 5000,
+          fabricante: "Que se cho",
         },
       ],
     };
@@ -47,7 +54,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.preescripciones {
+.medicamentos {
   height: 450px;
   overflow-y: hidden;
 }
@@ -63,12 +70,18 @@ export default {
 
   &__item {
     &:first-child {
-      width: 200px;
+      width: 140px;
     }
     &:nth-child(2) {
-      width: 400px;
+      width: 200px;
     }
     &:nth-child(3) {
+      width: 150px;
+    }
+    &:nth-child(4) {
+      width: 180px;
+    }
+    &:nth-child(5) {
       width: auto;
     }
   }
@@ -93,12 +106,12 @@ export default {
   row-gap: 1rem;
 
   &__item {
-    border: 2px solid gray;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
     border-radius: 0.5rem;
+    border: 2px solid gray;
     padding-right: 3rem;
 
     p {
@@ -107,12 +120,18 @@ export default {
       padding-left: 2rem;
 
       &:first-child {
-        width: 200px;
+        width: 140px;
       }
       &:nth-child(2) {
-        width: 400px;
+        width: 200px;
       }
       &:nth-child(3) {
+        width: 150px;
+      }
+      &:nth-child(4) {
+        width: 180px;
+      }
+      &:nth-child(5) {
         width: auto;
       }
     }

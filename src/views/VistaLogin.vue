@@ -4,13 +4,13 @@
       <img src="@/assets/img/login.png" alt="" />
     </div>
     <div class="right">
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="entrar">
         <div class="form__field">
           <label for="run">RUN</label>
           <input id="run" type="text" v-model="run" />
         </div>
         <div class="form__field">
-          <label for="password">Contraseña</label>
+          <label for="password">CONTRASEÑA</label>
           <input id="password" type="password" v-model="clave" />
         </div>
         <button type="submit">Ingresar</button>
@@ -29,13 +29,14 @@ export default {
     };
   },
   methods: {
-    async handleSubmit() {
+    async entrar() {
       try {
         await this.$store.dispatch("login", {
           run: this.run,
           clave: this.clave,
         });
-        this.$router.push({ name: "Inicio" });
+        await this.$router.push({ name: "Inicio" });
+        this.$toast.success("Bienvenido :)");
       } catch (err) {
         console.log(err);
       }
@@ -50,11 +51,11 @@ export default {
   justify-content: center;
   align-items: center;
   gap: 4rem;
-  padding-top: 3rem;
+  height: calc(100vh - 200px);
 
   .left {
     img {
-      width: 200px;
+      height: 300px;
     }
   }
 }
@@ -63,6 +64,9 @@ form {
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
+  border: 3px solid #44b7fea9;
+  border-radius: 1rem;
+  padding: 2rem;
 
   button {
     cursor: pointer;

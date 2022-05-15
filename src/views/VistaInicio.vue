@@ -12,11 +12,11 @@
         <img src="@/assets/img/revisar.png" alt="" />
         <p>Revisar preescripciones</p>
       </div>
-      <div class="cards__item">
+      <div class="cards__item" @click="$router.push({ name: 'Medicamentos' })">
         <img src="@/assets/img/control.png" alt="" />
         <p>Control de medicamentos</p>
       </div>
-      <div class="cards__item" @click="logout">
+      <div class="cards__item" @click="salir">
         <img src="@/assets/img/cerrar.png" alt="" />
         <p>Cerrar sesión</p>
       </div>
@@ -33,9 +33,10 @@ export default {
     },
   },
   methods: {
-    async logout() {
+    async salir() {
+      this.$toast.success("Hasta la próxima :)");
       await this.$store.dispatch("logout");
-      this.$router.push({ name: "Login" });
+      await this.$router.push({ name: "Login" });
     },
   },
 };
@@ -44,6 +45,11 @@ export default {
 <style lang="scss" scoped>
 .inicio {
   padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 250px);
 }
 .bienvenida {
   text-align: center;
@@ -64,6 +70,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-top: 4rem;
+  column-gap: 4rem;
 
   &__item {
     width: 300px;
@@ -83,7 +90,7 @@ export default {
       background-color: #44b6fe;
       border-radius: 0.5rem;
       padding: 1rem;
-      width: 100px;
+      width: 125px;
       transition: all 300ms ease-in-out;
     }
 
