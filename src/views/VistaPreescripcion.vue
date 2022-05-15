@@ -40,11 +40,6 @@ export default {
           run: "19.572.740-6",
           nombre: "Pablo Briceño",
         },
-        {
-          id: 2,
-          run: "20.984.103-7",
-          nombre: "Juan Pablo Navarrete",
-        },
       ],
     };
   },
@@ -60,8 +55,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  border-radius: 0.25rem;
+  border: 2px solid gray;
   width: 90%;
   margin-inline: auto;
   margin-bottom: 2rem;
@@ -93,9 +88,12 @@ export default {
   margin: 0 auto;
   height: 100%;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
 
   &__item {
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border: 2px solid gray;
     display: flex;
     justify-content: space-between;
     align-items: center;

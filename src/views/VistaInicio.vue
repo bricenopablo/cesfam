@@ -40,6 +40,11 @@ export default {
 <style lang="scss" scoped>
 .inicio {
   padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 250px);
 }
 .bienvenida {
   text-align: center;
@@ -60,6 +65,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-top: 4rem;
+  column-gap: 4rem;
 
   &__item {
     width: 300px;
@@ -79,7 +85,7 @@ export default {
       background-color: #44b6fe;
       border-radius: 0.5rem;
       padding: 1rem;
-      width: 100px;
+      width: 125px;
       transition: all 300ms ease-in-out;
     }
 

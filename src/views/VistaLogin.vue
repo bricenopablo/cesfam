@@ -10,7 +10,7 @@
           <input type="text" />
         </div>
         <div class="form__field">
-          <label>Contraseña</label>
+          <label>CONTRASEÑA</label>
           <input type="password" />
         </div>
         <button type="submit">Ingresar</button>
@@ -38,11 +38,11 @@ export default {
   justify-content: center;
   align-items: center;
   gap: 4rem;
-  padding-top: 3rem;
+  height: calc(100vh - 200px);
 
   .left {
     img {
-      width: 200px;
+      height: 300px;
     }
   }
 }
@@ -51,6 +51,9 @@ form {
   display: flex;
   flex-direction: column;
   row-gap: 2rem;
+  border: 3px solid #44b7fea9;
+  border-radius: 1rem;
+  padding: 2rem;
 
   button {
     cursor: pointer;

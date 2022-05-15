@@ -27,7 +27,7 @@ const routes = [
   },
   {
     path: "/detalle",
-    name: "Detalle",
+    name: "Detalle prescripción",
     component: () => import("../views/VistaDetalle.vue"),
   },
 ];

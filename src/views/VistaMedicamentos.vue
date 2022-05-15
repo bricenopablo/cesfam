@@ -62,8 +62,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-radius: 1rem;
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+  border-radius: 0.25rem;
+  border: 2px solid gray;
   width: 90%;
   margin-inline: auto;
   margin-bottom: 2rem;
@@ -101,14 +101,17 @@ export default {
   margin: 0 auto;
   height: 100%;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
 
   &__item {
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
     border-radius: 0.5rem;
+    border: 2px solid gray;
     padding-right: 3rem;
 
     p {
