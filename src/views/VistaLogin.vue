@@ -4,14 +4,14 @@
       <img src="@/assets/img/login.png" alt="" />
     </div>
     <div class="right">
-      <form>
+      <form @submit.prevent="handleSubmit">
         <div class="form__field">
-          <label>RUN</label>
-          <input type="text" />
+          <label for="run">RUN</label>
+          <input id="run" type="text" v-model="run" />
         </div>
         <div class="form__field">
-          <label>Contraseña</label>
-          <input type="password" />
+          <label for="password">Contraseña</label>
+          <input id="password" type="password" v-model="clave" />
         </div>
         <button type="submit">Ingresar</button>
       </form>
@@ -22,6 +22,25 @@
 <script>
 export default {
   name: "VistaLogin",
+  data() {
+    return {
+      run: "",
+      clave: "",
+    };
+  },
+  methods: {
+    async handleSubmit() {
+      try {
+        await this.$store.dispatch("login", {
+          run: this.run,
+          clave: this.clave,
+        });
+        this.$router.push({ name: "Inicio" });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
 };
 </script>
 

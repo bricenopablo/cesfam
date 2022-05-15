@@ -1,6 +1,6 @@
+import store from "@/store";
 import Vue from "vue";
 import VueRouter from "vue-router";
-import VistaInicio from "../views/VistaInicio.vue";
 
 Vue.use(VueRouter);
 
@@ -8,7 +8,7 @@ const routes = [
   {
     path: "/",
     name: "Inicio",
-    component: VistaInicio,
+    component: () => import("../views/VistaInicio.vue"),
   },
   {
     path: "/login",
@@ -31,6 +31,12 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach(async (to, from, next) => {
+  if (!sessionStorage.getItem("accessToken") && to.name !== "Login") {
+    next({ name: "Login" });
+  } else next();
 });
 
 export default router;

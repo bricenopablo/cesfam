@@ -15,6 +15,9 @@ import NavBar from "@/components/NavBar.vue";
 export default {
   name: "App",
   components: { NavBar },
+  async created() {
+    await this.$store.dispatch("fetchUserData");
+  },
 };
 </script>
 

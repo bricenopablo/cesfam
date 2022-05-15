@@ -2,7 +2,7 @@
   <div class="inicio">
     <div class="bienvenida">
       <h2>Bienvenid@</h2>
-      <span>Juan Pablo Navarrete</span>
+      <span>{{ userData.nombres }} {{ userData.apellidos }}</span>
     </div>
     <div class="cards">
       <div
@@ -16,7 +16,7 @@
         <img src="@/assets/img/control.png" alt="" />
         <p>Control de medicamentos</p>
       </div>
-      <div class="cards__item" @click="$router.push({ name: 'Login' })">
+      <div class="cards__item" @click="logout">
         <img src="@/assets/img/cerrar.png" alt="" />
         <p>Cerrar sesión</p>
       </div>
@@ -27,6 +27,17 @@
 <script>
 export default {
   name: "VistaInico",
+  computed: {
+    userData() {
+      return this.$store.state.userData;
+    },
+  },
+  methods: {
+    async logout() {
+      await this.$store.dispatch("logout");
+      this.$router.push({ name: "Login" });
+    },
+  },
 };
 </script>
 
