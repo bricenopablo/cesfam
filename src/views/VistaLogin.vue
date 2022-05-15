@@ -37,8 +37,8 @@ export default {
         });
         await this.$router.push({ name: "Inicio" });
         this.$toast.success("Bienvenido :)");
-      } catch (err) {
-        console.log(err);
+      } catch ({ error }) {
+        this.$toast.error(error);
       }
     },
   },
