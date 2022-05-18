@@ -1,6 +1,9 @@
 <template>
   <div class="medicamentos">
-    <template v-if="drugs.length">
+    <div style="margin: 3rem auto; width: fit-content" v-if="loading">
+      <h2>Cargando...</h2>
+    </div>
+    <template v-else-if="drugs.length">
       <div class="filters">
         <div class="filters__item">
           <input type="text" placeholder="CODIGO" />
@@ -19,12 +22,12 @@
         </div>
       </div>
       <div class="results">
-        <div class="results__item" v-for="drug in drugs" :key="drug.id">
+        <div class="results__item" v-for="drug in drugs" :key="drug._id">
           <p>{{ drug.codigo }}</p>
           <p>{{ drug.nombre }}</p>
           <p>{{ drug.cantidad }}</p>
           <p>{{ drug.fabricante }}</p>
-          <button>Ver detalles</button>
+          <router-link :to="`/detalle/${drug._id}`">Ver detalles</router-link>
         </div>
       </div>
     </template>
@@ -42,6 +45,7 @@ export default {
   data() {
     return {
       drugs: [],
+      loading: false,
     };
   },
   created() {
@@ -49,8 +53,10 @@ export default {
   },
   methods: {
     async obtenerMedicamentos() {
+      this.loading = true;
       const { data } = await MedicinesService.getMedicines();
       this.drugs = data;
+      this.loading = false;
     },
   },
 };

@@ -1,6 +1,9 @@
 <template>
   <div class="prescripciones">
-    <template v-if="prescriptions.length">
+    <div style="margin: 3rem auto; width: fit-content" v-if="loading">
+      <h2>Cargando...</h2>
+    </div>
+    <template v-else-if="prescriptions.length">
       <div class="filters">
         <div class="filters__item"><input type="text" placeholder="RUN" /></div>
         <div class="filters__item">
@@ -16,12 +19,18 @@
           v-for="prescription in prescriptions"
           :key="prescription._id"
         >
-          <p>{{ prescription.patient.run }}</p>
+          <p>{{ prescription.paciente.run }}</p>
           <p>
-            {{ prescription.patient.nombres }}
-            {{ prescription.patient.apellidos }}
+            {{ prescription.paciente.nombres }}
+            {{ prescription.paciente.apellidos }}
           </p>
-          <button>Ver detalles</button>
+          <router-link
+            :to="{
+              name: 'Detalle prescripción',
+              params: { id: prescription._id },
+            }"
+            >Ver detalles</router-link
+          >
         </div>
       </div>
     </template>
@@ -33,11 +42,13 @@
 
 <script>
 import PrescriptionsService from "@/services/PrescriptionsService";
+import PatientsService from "@/services/PatientsService";
 export default {
   name: "VistaPrescripciones",
   data() {
     return {
       prescriptions: [],
+      loading: false,
     };
   },
   created() {
@@ -45,8 +56,21 @@ export default {
   },
   methods: {
     async obtenerPrescripciones() {
-      const { data } = await PrescriptionsService.getPrescriptions();
-      this.prescriptions = data;
+      this.loading = true;
+      try {
+        const { data } = await PrescriptionsService.getPrescriptions();
+        const prescripciones = [];
+        for (const prescripcion of data) {
+          const { data: paciente } = await PatientsService.getPatientById(
+            prescripcion.paciente
+          );
+          prescripciones.push({ ...prescripcion, paciente });
+        }
+        this.prescriptions = prescripciones;
+      } catch (err) {
+        console.log(err);
+      }
+      this.loading = false;
     },
   },
 };
