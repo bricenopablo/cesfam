@@ -1,53 +1,59 @@
 <template>
-  <div class="preescripciones">
-    <div class="filters">
-      <div class="filters__item"><input type="text" placeholder="RUN" /></div>
-      <div class="filters__item">
-        <input type="text" placeholder="NOMBRE" />
+  <div class="prescripciones">
+    <template v-if="prescriptions.length">
+      <div class="filters">
+        <div class="filters__item"><input type="text" placeholder="RUN" /></div>
+        <div class="filters__item">
+          <input type="text" placeholder="NOMBRE" />
+        </div>
+        <div class="filters__item">
+          <input type="text" placeholder="ACCIONES" disabled />
+        </div>
       </div>
-      <div class="filters__item">
-        <input type="text" placeholder="ACCIONES" disabled />
+      <div class="results">
+        <div
+          class="results__item"
+          v-for="prescription in prescriptions"
+          :key="prescription._id"
+        >
+          <p>{{ prescription.patient.run }}</p>
+          <p>
+            {{ prescription.patient.nombres }}
+            {{ prescription.patient.apellidos }}
+          </p>
+          <button>Ver detalles</button>
+        </div>
       </div>
-    </div>
-    <div class="results">
-      <div class="results__item" v-for="patient in patients" :key="patient.id">
-        <p>{{ patient.run }}</p>
-        <p>{{ patient.nombre }}</p>
-        <button>Ver detalles</button>
-      </div>
+    </template>
+    <div style="margin: 3rem auto; width: fit-content" v-else>
+      <h2>No hay prescripciones disponibles.</h2>
     </div>
   </div>
 </template>
 
 <script>
+import PrescriptionsService from "@/services/PrescriptionsService";
 export default {
-  name: "VistaPreescripciones",
+  name: "VistaPrescripciones",
   data() {
     return {
-      patients: [
-        {
-          id: 1,
-          run: "19.572.740-6",
-          nombre: "Pablo Briceño",
-        },
-        {
-          id: 2,
-          run: "20.984.103-7",
-          nombre: "Juan Pablo Navarrete",
-        },
-        {
-          id: 1,
-          run: "19.572.740-6",
-          nombre: "Pablo Briceño",
-        },
-      ],
+      prescriptions: [],
     };
+  },
+  created() {
+    this.obtenerPrescripciones();
+  },
+  methods: {
+    async obtenerPrescripciones() {
+      const { data } = await PrescriptionsService.getPrescriptions();
+      this.prescriptions = data;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.preescripciones {
+.prescripciones {
   height: 450px;
   overflow-y: hidden;
 }
