@@ -1,26 +1,34 @@
 <template>
   <div class="inicio">
-    <div class="bienvenida">
-      <h2>Bienvenid@</h2>
-      <span>{{ userData.nombres }} {{ userData.apellidos }}</span>
-    </div>
-    <div class="cards">
-      <div
-        class="cards__item"
-        @click="$router.push({ name: 'Preescripciones' })"
-      >
-        <img src="@/assets/img/revisar.png" alt="" />
-        <p>Revisar preescripciones</p>
+    <template v-if="userData">
+      <div class="bienvenida">
+        <h2>Bienvenid@</h2>
+        <span>{{ userData.nombres }} {{ userData.apellidos }}</span>
       </div>
-      <div class="cards__item" @click="$router.push({ name: 'Medicamentos' })">
-        <img src="@/assets/img/control.png" alt="" />
-        <p>Control de medicamentos</p>
+      <div class="cards">
+        <div
+          class="cards__item"
+          @click="$router.push({ name: 'prescripciones' })"
+        >
+          <img src="@/assets/img/revisar.png" alt="" />
+          <p>Revisar prescripciones</p>
+        </div>
+        <div
+          class="cards__item"
+          @click="$router.push({ name: 'Medicamentos' })"
+        >
+          <img src="@/assets/img/control.png" alt="" />
+          <p>Control de medicamentos</p>
+        </div>
+        <div class="cards__item" @click="salir">
+          <img src="@/assets/img/cerrar.png" alt="" />
+          <p>Cerrar sesión</p>
+        </div>
       </div>
-      <div class="cards__item" @click="salir">
-        <img src="@/assets/img/cerrar.png" alt="" />
-        <p>Cerrar sesión</p>
-      </div>
-    </div>
+    </template>
+    <template v-else>
+      <h2>Cargando...</h2>
+    </template>
   </div>
 </template>
 
