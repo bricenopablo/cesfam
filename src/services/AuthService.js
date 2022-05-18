@@ -1,3 +1,4 @@
+import store from "@/store";
 import axios from "axios";
 
 const AuthService = axios.create({
@@ -23,7 +24,14 @@ AuthService.interceptors.request.use(
 
 AuthService.interceptors.response.use(
   (res) => res.data,
-  (error) => Promise.reject(error.response.data)
+  (error) => {
+    const { status } = error.response.data;
+    console.log(status);
+    if (status === 401) {
+      store.dispatch("logout");
+    }
+    return Promise.reject(error.response.data);
+  }
 );
 
 export default {

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const PatientsService = axios.create({
-  baseURL: process.env.VUE_APP_PATIENTS_ENDPOINT,
+const DoctorsService = axios.create({
+  baseURL: process.env.VUE_APP_DOCTORS_ENDPOINT,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
@@ -9,7 +9,7 @@ const PatientsService = axios.create({
 });
 
 //Interceptores
-PatientsService.interceptors.request.use(
+DoctorsService.interceptors.request.use(
   (config) => {
     // Verifica si existe un token
     const token = sessionStorage.getItem("accessToken");
@@ -21,25 +21,25 @@ PatientsService.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-PatientsService.interceptors.response.use(
+DoctorsService.interceptors.response.use(
   (res) => res.data,
   (error) => Promise.reject(error.response.data)
 );
 
 export default {
-  getPatients() {
-    return PatientsService.get("/");
+  getDoctors() {
+    return DoctorsService.get("/");
   },
-  getPatientById(id) {
-    return PatientsService.get(`/${id}`);
+  getDoctorById(id) {
+    return DoctorsService.get(`/${id}`);
   },
   create(data) {
-    return PatientsService.post("/", data);
+    return DoctorsService.post("/", data);
   },
   delete(id) {
-    return PatientsService.delete(`/${id}`);
+    return DoctorsService.delete(`/${id}`);
   },
   update(id, data) {
-    return PatientsService.patch(`/${id}`, data);
+    return DoctorsService.patch(`/${id}`, data);
   },
 };

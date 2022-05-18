@@ -30,7 +30,7 @@ export default {
   getPrescriptions() {
     return PrescriptionsService.get("/");
   },
-  getPrescriptionByCode(id) {
+  getPrescriptionById(id) {
     return PrescriptionsService.get(`/${id}`);
   },
   create(data) {
