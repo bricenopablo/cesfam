@@ -1,54 +1,57 @@
 <template>
   <div class="medicamentos">
-    <div class="filters">
-      <div class="filters__item">
-        <input type="text" placeholder="CODIGO" />
+    <template v-if="drugs.length">
+      <div class="filters">
+        <div class="filters__item">
+          <input type="text" placeholder="CODIGO" />
+        </div>
+        <div class="filters__item">
+          <input type="text" placeholder="NOMBRE" />
+        </div>
+        <div class="filters__item">
+          <input type="text" placeholder="CANTIDAD" />
+        </div>
+        <div class="filters__item">
+          <input type="text" placeholder="FABRICANTE" />
+        </div>
+        <div class="filters__item">
+          <input type="text" placeholder="ACCIONES" disabled />
+        </div>
       </div>
-      <div class="filters__item">
-        <input type="text" placeholder="NOMBRE" />
+      <div class="results">
+        <div class="results__item" v-for="drug in drugs" :key="drug.id">
+          <p>{{ drug.codigo }}</p>
+          <p>{{ drug.nombre }}</p>
+          <p>{{ drug.cantidad }}</p>
+          <p>{{ drug.fabricante }}</p>
+          <button>Ver detalles</button>
+        </div>
       </div>
-      <div class="filters__item">
-        <input type="text" placeholder="CANTIDAD" />
-      </div>
-      <div class="filters__item">
-        <input type="text" placeholder="FABRICANTE" />
-      </div>
-      <div class="filters__item">
-        <input type="text" placeholder="ACCIONES" disabled />
-      </div>
+    </template>
+    <div style="margin: 3rem auto; width: fit-content" v-else>
+      <h2>No hay medicamentos disponibles.</h2>
     </div>
-    <div class="results">
-      <div class="results__item" v-for="drug in drugs" :key="drug.id">
-        <p>{{ drug.codigo }}</p>
-        <p>{{ drug.nombre }}</p>
-        <p>{{ drug.cantidad }}</p>
-        <p>{{ drug.fabricante }}</p>
-        <button>Ver detalles</button>
-      </div>
-    </div>
+    <router-link to="/agregar-medicamento">Agregar medicamento</router-link>
   </div>
 </template>
 
 <script>
+import MedicinesService from "@/services/MedicinesService";
 export default {
-  name: "VistaPreescripciones",
+  name: "VistaMedicamentos",
   data() {
     return {
-      drugs: [
-        {
-          codigo: 1,
-          nombre: "Paracetamol",
-          cantidad: 2000,
-          fabricante: "Bayer",
-        },
-        {
-          codigo: 2,
-          nombre: "Ketadol",
-          cantidad: 5000,
-          fabricante: "Que se cho",
-        },
-      ],
+      drugs: [],
     };
+  },
+  created() {
+    this.obtenerMedicamentos();
+  },
+  methods: {
+    async obtenerMedicamentos() {
+      const { data } = await MedicinesService.getMedicines();
+      this.drugs = data;
+    },
   },
 };
 </script>
