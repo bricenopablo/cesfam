@@ -13,15 +13,20 @@
       <div class="results__item" v-for="patient in patients" :key="patient.id">
         <p>{{ patient.run }}</p>
         <p>{{ patient.nombre }}</p>
-        <button>Ver detalles</button>
+        <blue-button :to="{ name: 'Detalle prescripción' }"
+          >Ver detalles</blue-button
+        >
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import BlueButton from "@/components/BlueButton.vue";
+
 export default {
   name: "VistaPreescripciones",
+  components: { BlueButton },
   data() {
     return {
       patients: [
@@ -114,26 +119,6 @@ export default {
       }
       &:nth-child(3) {
         width: auto;
-      }
-    }
-
-    button {
-      cursor: pointer;
-      border: 2px solid transparent;
-      text-transform: uppercase;
-      display: block;
-      border-radius: 0.7rem;
-      background-color: #44b6fe;
-      color: #fff;
-      padding: 1rem 3rem;
-      font-weight: 600;
-      letter-spacing: 3px;
-      transition: all 300ms ease;
-
-      &:hover {
-        background-color: #fff;
-        color: #44b6fe;
-        border-color: #44b6fe;
       }
     }
   }
