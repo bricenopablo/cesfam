@@ -21,6 +21,11 @@ const routes = [
     component: () => import("../views/VistaPreescripcion.vue"),
   },
   {
+    path: "/pacientes",
+    name: "Pacientes",
+    component: () => import("../views/VistaPacientes.vue"),
+  },
+  {
     path: "/medicamentos",
     name: "Medicamentos",
     component: () => import("../views/VistaMedicamentos.vue"),

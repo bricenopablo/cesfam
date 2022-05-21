@@ -5,6 +5,10 @@
       <span>Juan Pablo Navarrete</span>
     </div>
     <div class="cards">
+      <div class="cards__item" @click="$router.push({ name: 'Pacientes' })">
+        <img src="@/assets/img/patient.png" alt="" />
+        <p>Pacientes</p>
+      </div>
       <div
         class="cards__item"
         @click="$router.push({ name: 'Preescripciones' })"
