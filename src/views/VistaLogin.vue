@@ -13,15 +13,18 @@
           <label>CONTRASEÑA</label>
           <input type="password" />
         </div>
-        <button type="submit">Ingresar</button>
+        <blue-button type="submit">Ingresar</blue-button>
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import BlueButton from "@/components/BlueButton.vue";
+
 export default {
   name: "VistaLogin",
+  components: { BlueButton },
   methods: {
     entrar() {
       this.$router.push({ name: "Inicio" }).then(() => {
@@ -54,27 +57,6 @@ form {
   border: 3px solid #44b7fea9;
   border-radius: 1rem;
   padding: 2rem;
-
-  button {
-    cursor: pointer;
-    border: 2px solid transparent;
-    text-transform: uppercase;
-    display: block;
-    border-radius: 0.7rem;
-    background-color: #44b6fe;
-    color: #fff;
-    padding: 1rem 3rem;
-    font-weight: 600;
-    letter-spacing: 3px;
-    font-size: 18px;
-    transition: all 300ms ease;
-
-    &:hover {
-      background-color: #fff;
-      color: #44b6fe;
-      border-color: #44b6fe;
-    }
-  }
 }
 
 .form__field {
