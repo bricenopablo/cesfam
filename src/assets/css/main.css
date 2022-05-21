@@ -37,3 +37,48 @@ body::-webkit-scrollbar {
 ::-webkit-scrollbar-thumb:hover {
   background: #44b6fe;
 }
+
+a,
+button,
+input,
+select,
+textarea,
+option {
+  font-size: 16px;
+}
+
+input,
+select {
+  border-radius: 0.3rem;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  outline: none;
+  width: 100%;
+}
+
+input,
+select {
+  min-height: 50px;
+  max-height: 50px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #44b6fe;
+  outline: none;
+}
+
+input,
+select,
+textarea {
+  background-color: #fff;
+}
+
+label {
+  color: rgba(0, 0, 0, 0.7);
+  text-align: left;
+  margin-bottom: 0.2rem;
+  font-weight: 400;
+  text-transform: uppercase;
+}
