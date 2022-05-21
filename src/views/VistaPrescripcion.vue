@@ -59,13 +59,13 @@ export default {
       this.loading = true;
       try {
         const { data } = await PrescriptionsService.getPrescriptions();
-        const prescripciones = [];
-        for (const prescripcion of data) {
-          const { data: paciente } = await PatientsService.getPatientById(
-            prescripcion.paciente
-          );
-          prescripciones.push({ ...prescripcion, paciente });
-        }
+        const prescripciones = await Promise.all(
+          data.map(async (p) => ({
+            ...p,
+            paciente: (await PatientsService.getPatientById(p.paciente)).data,
+          }))
+        );
+
         this.prescriptions = prescripciones;
       } catch (err) {
         console.log(err);

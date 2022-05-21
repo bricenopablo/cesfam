@@ -1,26 +1,30 @@
 <template>
   <div class="medicamentos">
+    <div class="filters">
+      <div class="filters__item">
+        <input v-model="filtros.codigo" type="text" placeholder="CODIGO" />
+      </div>
+      <div class="filters__item">
+        <input v-model="filtros.nombre" type="text" placeholder="NOMBRE" />
+      </div>
+      <div class="filters__item">
+        <input v-model="filtros.cantidad" type="text" placeholder="CANTIDAD" />
+      </div>
+      <div class="filters__item">
+        <input
+          v-model="filtros.fabricante"
+          type="text"
+          placeholder="FABRICANTE"
+        />
+      </div>
+      <div class="filters__item">
+        <input type="text" placeholder="ACCIONES" disabled />
+      </div>
+    </div>
     <div style="margin: 3rem auto; width: fit-content" v-if="loading">
       <h2>Cargando...</h2>
     </div>
     <template v-else-if="drugs.length">
-      <div class="filters">
-        <div class="filters__item">
-          <input type="text" placeholder="CODIGO" />
-        </div>
-        <div class="filters__item">
-          <input type="text" placeholder="NOMBRE" />
-        </div>
-        <div class="filters__item">
-          <input type="text" placeholder="CANTIDAD" />
-        </div>
-        <div class="filters__item">
-          <input type="text" placeholder="FABRICANTE" />
-        </div>
-        <div class="filters__item">
-          <input type="text" placeholder="ACCIONES" disabled />
-        </div>
-      </div>
       <div class="results">
         <div class="results__item" v-for="drug in drugs" :key="drug._id">
           <p>{{ drug.codigo }}</p>
@@ -118,6 +122,7 @@ export default {
     return {
       drugs: [],
       modalActive: false,
+      waitingResponse: false,
       loading: false,
       drugForm: {
         codigo: "",
@@ -128,19 +133,35 @@ export default {
         gramaje: "",
         precio: 0,
       },
+      filtros: {
+        codigo: "",
+        nombre: "",
+        cantidad: "",
+        fabricante: "",
+      },
     };
   },
   created() {
     this.obtenerMedicamentos();
   },
+  watch: {
+    filtros: {
+      handler() {
+        this.buscarMedicamentos();
+      },
+      deep: true,
+    },
+  },
   methods: {
     async obtenerMedicamentos() {
       this.loading = true;
       const { data } = await MedicinesService.getMedicines();
+
       this.drugs = data;
       this.loading = false;
     },
     async agregarMedicamento() {
+      this.waitingResponse = true;
       try {
         const { data } = await MedicinesService.create(this.drugForm);
         this.drugs.unshift(data);
@@ -150,6 +171,14 @@ export default {
       } catch (err) {
         this.$toast.error(err.error);
       }
+      this.waitingResponse = false;
+    },
+    async buscarMedicamentos() {
+      this.loading = true;
+      const { data } = await MedicinesService.getMedicines(this.filtros);
+
+      this.drugs = data;
+      this.loading = false;
     },
     toggleModal() {
       this.modalActive = !this.modalActive;

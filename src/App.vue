@@ -16,7 +16,11 @@ export default {
   name: "App",
   components: { NavBar },
   async created() {
-    await this.$store.dispatch("fetchUserData");
+    try {
+      await this.$store.dispatch("fetchUserData");
+    } catch (err) {
+      console.log("Debe iniciar sesión.");
+    }
   },
 };
 </script>

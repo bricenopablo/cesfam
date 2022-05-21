@@ -1,3 +1,4 @@
+import store from "@/store";
 import axios from "axios";
 
 const PatientsService = axios.create({
@@ -23,7 +24,13 @@ PatientsService.interceptors.request.use(
 
 PatientsService.interceptors.response.use(
   (res) => res.data,
-  (error) => Promise.reject(error.response.data)
+  (error) => {
+    const { status } = error.response.data;
+    if (status === 401) {
+      store.dispatch("logout");
+    }
+    return Promise.reject(error.response.data);
+  }
 );
 
 export default {

@@ -1,3 +1,4 @@
+import store from "@/store";
 import axios from "axios";
 
 const MedicinesService = axios.create({
@@ -24,17 +25,23 @@ MedicinesService.interceptors.request.use(
 MedicinesService.interceptors.response.use(
   (res) => res.data,
   (error) => {
-    const { status } = error.response;
+    const { status } = error.response.data;
     if (status === 401) {
-      sessionStorage.removeItem("accessToken");
+      store.dispatch("logout");
     }
     return Promise.reject(error.response.data);
   }
 );
 
 export default {
-  getMedicines() {
-    return MedicinesService.get("/");
+  getMedicines(filters) {
+    let query = filters ? "?" : "";
+    for (const filter in filters) {
+      if (filters[filter] !== "") {
+        query += `${filter}=${filters[filter]}&`;
+      }
+    }
+    return MedicinesService.get("/" + query);
   },
   getMedicineByCode(code) {
     return MedicinesService.get(`/${code}`);

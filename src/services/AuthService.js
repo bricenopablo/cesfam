@@ -26,7 +26,6 @@ AuthService.interceptors.response.use(
   (res) => res.data,
   (error) => {
     const { status } = error.response.data;
-    console.log(status);
     if (status === 401) {
       store.dispatch("logout");
     }
