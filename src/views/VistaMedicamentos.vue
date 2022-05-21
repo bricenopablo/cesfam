@@ -31,7 +31,7 @@
           <p>{{ drug.nombre }}</p>
           <p>{{ drug.cantidad }}</p>
           <p>{{ drug.fabricante }}</p>
-          <router-link :to="`/detalle/${drug._id}`">Ver detalles</router-link>
+          <blue-button type="button">Ver detalles</blue-button>
         </div>
       </div>
     </template>
@@ -106,7 +106,7 @@
           </div>
         </div>
 
-        <button type="submit">Agregar</button>
+        <blue-button type="submit">Agregar</blue-button>
       </form>
     </div>
 
@@ -116,8 +116,11 @@
 
 <script>
 import MedicinesService from "@/services/MedicinesService";
+import BlueButton from "@/components/BlueButton.vue";
+
 export default {
   name: "VistaMedicamentos",
+  components: { BlueButton },
   data() {
     return {
       drugs: [],
@@ -272,27 +275,6 @@ export default {
       gap: 2rem;
       align-items: center;
       margin-bottom: 2rem;
-    }
-
-    button {
-      cursor: pointer;
-      border: 2px solid transparent;
-      text-transform: uppercase;
-      display: block;
-      border-radius: 0.7rem;
-      background-color: #44b6fe;
-      color: #fff;
-      padding: 1rem 3rem;
-      font-weight: 600;
-      letter-spacing: 3px;
-      font-size: 18px;
-      transition: all 300ms ease;
-
-      &:hover {
-        background-color: #fff;
-        color: #44b6fe;
-        border-color: #44b6fe;
-      }
     }
   }
 }

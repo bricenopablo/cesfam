@@ -24,12 +24,12 @@
             {{ prescription.paciente.nombres }}
             {{ prescription.paciente.apellidos }}
           </p>
-          <router-link
+          <blue-button
             :to="{
               name: 'Detalle prescripción',
               params: { id: prescription._id },
             }"
-            >Ver detalles</router-link
+            >Ver detalles</blue-button
           >
         </div>
       </div>
@@ -43,8 +43,10 @@
 <script>
 import PrescriptionsService from "@/services/PrescriptionsService";
 import PatientsService from "@/services/PatientsService";
+import BlueButton from "@/components/BlueButton.vue";
 export default {
   name: "VistaPrescripciones",
+  components: { BlueButton },
   data() {
     return {
       prescriptions: [],
