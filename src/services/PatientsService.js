@@ -34,8 +34,14 @@ PatientsService.interceptors.response.use(
 );
 
 export default {
-  getPatients() {
-    return PatientsService.get("/");
+  getPatients(filters) {
+    let query = filters ? "?" : "";
+    for (const filter in filters) {
+      if (filters[filter] !== "") {
+        query += `${filter}=${filters[filter]}&`;
+      }
+    }
+    return PatientsService.get("/" + query);
   },
   getPatientById(id) {
     return PatientsService.get(`/${id}`);
