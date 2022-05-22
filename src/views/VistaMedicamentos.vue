@@ -109,8 +109,6 @@
         <blue-button type="submit">Agregar</blue-button>
       </form>
     </div>
-
-    <router-link to="/agregar-medicamento">Agregar medicamento</router-link>
   </div>
 </template>
 
