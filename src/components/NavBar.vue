@@ -36,13 +36,18 @@ export default {
 <style lang="scss" scoped>
 .navBar {
   height: 100px;
-  background: #44b6fe;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(68, 182, 254, 0.85),
+    #47bae3
+  );
   display: flex;
   justify-content: center;
   align-items: center;
   position: sticky;
   top: 0;
   margin-bottom: 3rem;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
 }
 
 .title {
