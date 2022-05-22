@@ -39,7 +39,7 @@
       <h2>No hay medicamentos disponibles.</h2>
     </div>
 
-    <div class="add__btn" @click="toggleModal" v-if="!modalActive">
+    <div class="add__btn" @click="toggleModal" v-if="!modalActive && !esMedico">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
@@ -119,6 +119,11 @@ import BlueButton from "@/components/BlueButton.vue";
 export default {
   name: "VistaMedicamentos",
   components: { BlueButton },
+  computed: {
+    esMedico() {
+      return this.$store.state.userData.roles.includes("medico");
+    },
+  },
   data() {
     return {
       drugs: [],

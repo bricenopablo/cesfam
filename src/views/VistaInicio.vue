@@ -6,13 +6,18 @@
         <span>{{ userData.nombres }} {{ userData.apellidos }}</span>
       </div>
       <div class="cards">
-        <div class="cards__item" @click="$router.push({ name: 'Pacientes' })">
+        <div
+          v-if="esMedico"
+          class="cards__item"
+          @click="$router.push({ name: 'Pacientes' })"
+        >
           <img src="@/assets/img/patient.png" alt="" />
           <p>Pacientes</p>
         </div>
         <div
           class="cards__item"
           @click="$router.push({ name: 'prescripciones' })"
+          v-else
         >
           <img src="@/assets/img/revisar.png" alt="" />
           <p>Revisar prescripciones</p>
@@ -22,7 +27,11 @@
           @click="$router.push({ name: 'Medicamentos' })"
         >
           <img src="@/assets/img/control.png" alt="" />
-          <p>Control de medicamentos</p>
+          <p>
+            {{
+              esMedico ? "Consultar medicamentos" : "Control de medicamentos"
+            }}
+          </p>
         </div>
         <div class="cards__item" @click="salir">
           <img src="@/assets/img/cerrar.png" alt="" />
@@ -42,6 +51,9 @@ export default {
   computed: {
     userData() {
       return this.$store.state.userData;
+    },
+    esMedico() {
+      return this.userData.roles.includes("medico");
     },
   },
   methods: {
