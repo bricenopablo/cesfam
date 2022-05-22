@@ -8,7 +8,11 @@
         <input v-model="filtros.nombre" type="text" placeholder="NOMBRE" />
       </div>
       <div class="filters__item">
-        <input v-model="filtros.cantidad" type="text" placeholder="CANTIDAD" />
+        <input
+          v-model.number="filtros.cantidad"
+          type="number"
+          placeholder="CANTIDAD"
+        />
       </div>
       <div class="filters__item">
         <input
@@ -21,9 +25,7 @@
         <input type="text" placeholder="ACCIONES" disabled />
       </div>
     </div>
-    <div style="margin: 3rem auto; width: fit-content" v-if="loading">
-      <h2>Cargando...</h2>
-    </div>
+    <h2 v-if="loading || !userData" style="text-align: center">Cargando...</h2>
     <template v-else-if="drugs.length">
       <div class="results">
         <div class="results__item" v-for="drug in drugs" :key="drug._id">
@@ -31,7 +33,9 @@
           <p>{{ drug.nombre }}</p>
           <p>{{ drug.cantidad }}</p>
           <p>{{ drug.fabricante }}</p>
-          <blue-button type="button">Ver detalles</blue-button>
+          <blue-button type="button" @click="() => toggleDrugDetail(drug)"
+            >Ver detalles</blue-button
+          >
         </div>
       </div>
     </template>
@@ -39,7 +43,11 @@
       <h2>No hay medicamentos disponibles.</h2>
     </div>
 
-    <div class="add__btn" @click="toggleModal" v-if="!modalActive && !esMedico">
+    <div
+      class="add__btn"
+      @click="toggleAddDrug"
+      v-if="!addDrugActive && !esMedico"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
@@ -53,9 +61,10 @@
       </svg>
     </div>
     <modal
+      inline
       title="Nuevo medicamento"
-      :modalActive="modalActive"
-      @close="toggleModal"
+      v-if="addDrugActive"
+      @close="toggleAddDrug"
     >
       <form @submit.prevent="agregarMedicamento">
         <div class="form__body">
@@ -81,15 +90,82 @@
           </div>
           <div class="form__field">
             <label>Cantidad</label>
-            <input type="number" v-model="drugForm.cantidad" />
+            <input type="number" v-model.number="drugForm.cantidad" />
           </div>
           <div class="form__field">
             <label>Precio</label>
-            <input type="number" v-model="drugForm.precio" />
+            <input type="number" v-model.number="drugForm.precio" />
           </div>
         </div>
 
         <blue-button type="submit">Agregar</blue-button>
+      </form>
+    </modal>
+    <modal
+      :title="'Detalle ' + currentDrug.nombre"
+      v-if="detailActive"
+      @close="toggleDrugDetail"
+    >
+      <form>
+        <div class="form__body">
+          <div class="form__field">
+            <label>Código</label>
+            <input
+              type="text"
+              v-model="currentDrug.codigo"
+              :disabled="esMedico"
+            />
+          </div>
+          <div class="form__field">
+            <label>Nombre</label>
+            <input
+              type="text"
+              v-model="currentDrug.nombre"
+              :disabled="esMedico"
+            />
+          </div>
+          <div class="form__field">
+            <label>Descripción</label>
+            <input
+              type="text"
+              v-model="currentDrug.descripcion"
+              :disabled="esMedico"
+            />
+          </div>
+          <div class="form__field">
+            <label>Fabricante</label>
+            <input
+              type="text"
+              v-model="currentDrug.fabricante"
+              :disabled="esMedico"
+            />
+          </div>
+          <div class="form__field">
+            <label>Gramaje</label>
+            <input
+              type="text"
+              v-model="currentDrug.gramaje"
+              :disabled="esMedico"
+            />
+          </div>
+          <div class="form__field">
+            <label>Cantidad</label>
+            <input
+              type="number"
+              v-model="currentDrug.cantidad"
+              :disabled="esMedico"
+            />
+          </div>
+          <div class="form__field">
+            <label>Precio</label>
+            <input
+              type="number"
+              v-model="currentDrug.precio"
+              :disabled="esMedico"
+            />
+          </div>
+        </div>
+        <blue-button v-if="!esMedico" type="submit">Actualizar</blue-button>
       </form>
     </modal>
   </div>
@@ -104,16 +180,21 @@ export default {
   name: "VistaMedicamentos",
   components: { BlueButton, Modal },
   computed: {
+    userData() {
+      return this.$store.state.userData;
+    },
     esMedico() {
-      return this.$store.state.userData.roles.includes("medico");
+      return this.userData.roles.includes("medico");
     },
   },
   data() {
     return {
       drugs: [],
-      modalActive: false,
+      addDrugActive: false,
+      detailActive: false,
       waitingResponse: false,
       loading: false,
+      currentDrug: {},
       drugForm: {
         codigo: "",
         descripcion: "",
@@ -157,7 +238,7 @@ export default {
         this.drugs.unshift(data);
 
         this.$toast.success("Se ha agregado el medicamento exitosamente.");
-        this.toggleModal();
+        this.toggleAddDrug();
       } catch (err) {
         this.$toast.error(err.error);
       }
@@ -170,8 +251,12 @@ export default {
       this.drugs = data;
       this.loading = false;
     },
-    toggleModal() {
-      this.modalActive = !this.modalActive;
+    toggleAddDrug() {
+      this.addDrugActive = !this.addDrugActive;
+    },
+    toggleDrugDetail(drug) {
+      this.currentDrug = drug;
+      this.detailActive = !this.detailActive;
     },
   },
 };
@@ -242,10 +327,10 @@ form {
       width: 140px;
     }
     &:nth-child(2) {
-      width: 200px;
+      width: 180px;
     }
     &:nth-child(3) {
-      width: 150px;
+      width: 180px;
     }
     &:nth-child(4) {
       width: 180px;
@@ -289,13 +374,13 @@ form {
       padding-left: 2rem;
 
       &:first-child {
-        width: 140px;
+        width: 180px;
       }
       &:nth-child(2) {
-        width: 200px;
+        width: 220px;
       }
       &:nth-child(3) {
-        width: 150px;
+        width: 220px;
       }
       &:nth-child(4) {
         width: 180px;
