@@ -1,5 +1,5 @@
 <template>
-  <div class="add__modal" v-if="modalActive">
+  <div class="add__modal" :class="{ inline: inline }">
     <div class="close__btn" @click="closeModal">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -33,9 +33,9 @@ export default {
       type: String,
       required: true,
     },
-    modalActive: {
+    inline: {
       type: Boolean,
-      required: true,
+      required: false,
     },
   },
   methods: {
@@ -61,9 +61,14 @@ export default {
   border-radius: 1rem;
   padding: 1rem 2rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
+  flex-direction: column;
+
+  &.inline {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
 
   .modal__title {
     h2 {
