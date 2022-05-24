@@ -6,37 +6,30 @@
         <span>{{ userData.nombres }} {{ userData.apellidos }}</span>
       </div>
       <div class="cards">
-        <div
+        <card-button
           v-if="esMedico"
-          class="cards__item"
-          @click="$router.push({ name: 'Pacientes' })"
-        >
-          <img src="@/assets/img/patient.png" alt="" />
-          <p>Pacientes</p>
-        </div>
-        <div
-          class="cards__item"
-          @click="$router.push({ name: 'prescripciones' })"
+          text="Pacientes"
+          :icon="require('@/assets/img/patient.png')"
+          :to="{ name: 'Pacientes' }"
+        />
+        <card-button
           v-else
-        >
-          <img src="@/assets/img/revisar.png" alt="" />
-          <p>Revisar prescripciones</p>
-        </div>
-        <div
-          class="cards__item"
-          @click="$router.push({ name: 'Medicamentos' })"
-        >
-          <img src="@/assets/img/control.png" alt="" />
-          <p>
-            {{
-              esMedico ? "Consultar medicamentos" : "Control de medicamentos"
-            }}
-          </p>
-        </div>
-        <div class="cards__item" @click="salir">
-          <img src="@/assets/img/cerrar.png" alt="" />
-          <p>Cerrar sesión</p>
-        </div>
+          text="Revisar prescripciones"
+          :icon="require('@/assets/img/revisar.png')"
+          :to="{ name: 'prescripciones' }"
+        />
+        <card-button
+          :text="
+            esMedico ? 'Consultar medicamentos' : 'Control de medicamentos'
+          "
+          :icon="require('@/assets/img/control.png')"
+          :to="{ name: 'Medicamentos' }"
+        />
+        <card-button
+          text="Cerrar sesión"
+          :icon="require('@/assets/img/cerrar.png')"
+          @click="salir"
+        />
       </div>
     </template>
     <template v-else>
@@ -46,8 +39,10 @@
 </template>
 
 <script>
+import CardButton from "@/components/CardButton.vue";
 export default {
   name: "VistaInico",
+  components: { CardButton },
   computed: {
     userData() {
       return this.$store.state.userData;
@@ -95,35 +90,5 @@ export default {
   align-items: center;
   margin-top: 4rem;
   column-gap: 4rem;
-
-  &__item {
-    width: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    row-gap: 1rem;
-    cursor: pointer;
-
-    &:hover img,
-    &:hover p {
-      transform: scale(1.1);
-    }
-
-    img {
-      background-color: #44b6fe;
-      border-radius: 0.5rem;
-      padding: 1rem;
-      width: 125px;
-      transition: all 300ms ease-in-out;
-    }
-
-    p {
-      transition: all 300ms ease-in-out;
-      opacity: 0.75;
-      text-align: center;
-      font-size: 20px;
-    }
-  }
 }
 </style>
