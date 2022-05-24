@@ -106,7 +106,7 @@
       v-if="detailActive"
       @close="toggleDrugDetail"
     >
-      <form>
+      <form @submit.prevent="actualizarMedicamento">
         <div class="form__body">
           <div class="form__field">
             <label>Código</label>
@@ -243,6 +243,23 @@ export default {
         this.$toast.error(err.error);
       }
       this.waitingResponse = false;
+    },
+    async actualizarMedicamento() {
+      try {
+        const { data } = await MedicinesService.update(
+          this.currentDrug.codigo,
+          this.currentDrug
+        );
+        const dIndex = this.drugs.findIndex(
+          (d) => d._id === this.currentDrug._id
+        );
+
+        this.$set(this.drugs, dIndex, data);
+        this.$toast.success("Se ha actualizado el medicamento.");
+        this.toggleDrugDetail();
+      } catch (err) {
+        this.$toast.error(err.error);
+      }
     },
     async buscarMedicamentos() {
       this.loading = true;
