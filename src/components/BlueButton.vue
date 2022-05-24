@@ -25,20 +25,23 @@ export default {
 .blue-btn {
   cursor: pointer;
   border: 2px solid transparent;
-  text-transform: uppercase;
   display: block;
   border-radius: 0.7rem;
-  background-color: #44b6fe;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(68, 182, 254, 0.85),
+    #47bae3
+  );
   color: #fff;
   padding: 1rem 3rem;
-  font-weight: 600;
-  letter-spacing: 3px;
+  font-weight: 400;
   font-size: 18px;
   transition: all 300ms ease;
   text-decoration: none;
+  box-shadow: 0 5px 6px rgba(0, 0, 0, 0.3);
 
   &:hover {
-    background-color: #fff;
+    background: #fff;
     color: #44b6fe;
     border-color: #44b6fe;
   }

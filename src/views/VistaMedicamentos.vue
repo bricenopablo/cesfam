@@ -269,27 +269,6 @@ export default {
   position: relative;
 }
 
-.add__btn {
-  background-color: #44b6fe;
-  border-radius: 50%;
-  position: fixed;
-  bottom: 1rem;
-  right: 5%;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  svg {
-    width: 2rem;
-    height: 2rem;
-    path {
-      fill: #fff;
-    }
-  }
-}
 form {
   width: 100%;
   display: flex;
@@ -387,26 +366,6 @@ form {
       }
       &:nth-child(5) {
         width: auto;
-      }
-    }
-
-    button {
-      cursor: pointer;
-      border: 2px solid transparent;
-      text-transform: uppercase;
-      display: block;
-      border-radius: 0.7rem;
-      background-color: #44b6fe;
-      color: #fff;
-      padding: 1rem 3rem;
-      font-weight: 600;
-      letter-spacing: 3px;
-      transition: all 300ms ease;
-
-      &:hover {
-        background-color: #fff;
-        color: #44b6fe;
-        border-color: #44b6fe;
       }
     }
   }
